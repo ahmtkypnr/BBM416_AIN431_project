@@ -1,0 +1,26 @@
+Roadmap - 04.05.2025
+
+Determining the Super-Resolution Algorithms to be Used
+Note: YOLO rescales image inputs to its own preferred size, so it would be better to use AI models like ESRGAN instead of simple OpenCV functions. I think one simple function like bilinear interpolation, and one AI model would be sufficient.
+
+Using YOLO V10 because it’s the most up-to-date with high performance and fewer parameters. I don't think we should use V11 because I personally don't like the latest versions—they tend to be buggy. The professor also said we could use V8 or V10, but didn’t mention V11, and there might be a reason for that.
+
+Downloading the Model and preparing our dataset for training (fine-tuning) (integrating into the dataloader).
+
+Fine-Tuning Process
+
+Evaluating the Results -> Depending on the situation:
+A) Data Augmentation
+B) Taking a subset of classes
+
+Re-fine-Tuning the Model Based on Results
+
+Model Tuning
+
+Applying Super-Resolution Algorithms
+
+Fine-Tuning the Models with High-Resolution Images - Tuning (I am not sure if this will be necessary)
+
+Comparing and Reporting the Results
+
+Deadline - 21.05.2025
