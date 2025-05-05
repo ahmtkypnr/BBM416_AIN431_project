@@ -5,22 +5,22 @@ Note: YOLO rescales image inputs to its own preferred size, so it would be bette
 
 Using YOLO V10 because it’s the most up-to-date with high performance and fewer parameters. I don't think we should use V11 because I personally don't like the latest versions—they tend to be buggy. The professor also said we could use V8 or V10, but didn’t mention V11, and there might be a reason for that.
 
-Downloading the Model and preparing our dataset for training (fine-tuning) (integrating into the dataloader).
+Downloading the Model and preparing our dataset for training (fine-tuning) (integrating into the dataloader). !Done, dataloader can't be used data has to be handled manually.!
 
-Fine-Tuning Process
+Fine-Tuning Process !Not Done!
 
-Evaluating the Results -> Depending on the situation:
+Evaluating the Results -> Depending on the situation: !Not Done!
 A) Data Augmentation
 B) Taking a subset of classes
 
-Re-fine-Tuning the Model Based on Results
+Re-fine-Tuning the Model Based on Results !Not Done!
 
-Model Tuning
+Model Tuning !Not Done!
 
-Applying Super-Resolution Algorithms
+Applying Super-Resolution Algorithms !Not Done!
 
-Fine-Tuning the Models with High-Resolution Images - Tuning (I am not sure if this will be necessary)
+Fine-Tuning the Models with High-Resolution Images - Tuning (I am not sure if this will be necessary) !It seems to be not required for now!
 
-Comparing and Reporting the Results
+Comparing and Reporting the Results !Not Done!
 
 Deadline - 21.05.2025
