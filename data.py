@@ -64,26 +64,8 @@ def exclude_classes(classes_to_exclude: list, dataset_path=os.getcwd()):
         print("Dosya yüklendi.")
 
     except FileNotFoundError:
-        print(f"{json_path} bulunamadı, yeni bir dosya oluşturulacak.")
-        
-        # Eğer dosya yoksa, yeni bir dictionary oluştur ve dosyaya kaydet
-        classes = {}
-        csvs = []  # csvs değişkeni burada tanımlanmalı
-        # Burada csvs listesini uygun şekilde doldurmalısınız, örneğin:
-        # csvs = [os.path.join(dataset_path, 'csv_files', f) for f in os.listdir(os.path.join(dataset_path, 'csv_files'))]
-        with tqdm(csvs, total=len(csvs)) as progress_bar:
-            for csv_path in progress_bar:
-                name = csv_path.split(os.sep)[-1].replace(".csv", "")
-                _class = get_class(csv_path)  # get_class fonksiyonunun nasıl çalıştığını doğrulamalısınız
-                if _class not in classes:
-                    classes[_class] = []
-                classes[_class].append(name)
-
-        # JSON dosyasını oluştur ve dictionary'i yaz
-        with open(json_path, 'w') as json_file:
-            json.dump(classes, json_file, indent=4)
-        
-        print(f"{json_path} başarıyla oluşturuldu.")
+        print(f"{json_path} bulunamadı")
+        return
 
     except json.JSONDecodeError:
         print(f"{json_path} hatalı bir JSON formatına sahip, dosya okunamadı.")
@@ -91,13 +73,12 @@ def exclude_classes(classes_to_exclude: list, dataset_path=os.getcwd()):
 
     # 'classes_to_exclude' parametresine göre sınıfları dışarıda bırak
     classes_to_include = []
-
     for key in classes.keys():
         if key not in classes_to_exclude:
             classes_to_include.append(key)
 
     # Sadece dahil edilen sınıfları ekle
-
+    print("classes:", len(classes_to_include))
     data = {
       'path': dataset_path,  # dataset root directory
       'train': 'images/train',  # train images folder
