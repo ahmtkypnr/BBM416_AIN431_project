@@ -90,12 +90,13 @@ def exclude_classes(classes_to_exclude: list, dataset_path=os.getcwd()):
         return
 
     # 'classes_to_exclude' parametresine göre sınıfları dışarıda bırak
-    for class_to_exclude in classes_to_exclude:
-        if class_to_exclude in classes:
-            del classes[class_to_exclude]
+    classes_to_include = []
+
+    for key in classes.keys():
+        if key not in classes_to_exclude:
+            classes_to_include.append(key)
 
     # Sadece dahil edilen sınıfları ekle
-    classes_to_include = list(classes.keys())
 
     data = {
       'path': dataset_path,  # dataset root directory
