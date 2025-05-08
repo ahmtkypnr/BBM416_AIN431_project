@@ -53,7 +53,62 @@ def get_class(csv_path):
                 classes[box_class] += 1
     return max(classes, key=classes.get)
 
+def exclude_classes(classes_to_exclude: list, dataset_path=os.getcwd()):
 
+    json_path = os.path.join(dataset_path, 'classes.json')
+
+    try:
+        # Dosyayı aç ve içeriği dictionary olarak yükle
+        with open(json_path, 'r') as json_file:
+            classes = json.load(json_file)
+        print("Dosya yüklendi.")
+
+    except FileNotFoundError:
+        print(f"{json_path} bulunamadı, yeni bir dosya oluşturulacak.")
+        
+        # Eğer dosya yoksa, yeni bir dictionary oluştur ve dosyaya kaydet
+        classes = {}
+        csvs = []  # csvs değişkeni burada tanımlanmalı
+        # Burada csvs listesini uygun şekilde doldurmalısınız, örneğin:
+        # csvs = [os.path.join(dataset_path, 'csv_files', f) for f in os.listdir(os.path.join(dataset_path, 'csv_files'))]
+        with tqdm(csvs, total=len(csvs)) as progress_bar:
+            for csv_path in progress_bar:
+                name = csv_path.split(os.sep)[-1].replace(".csv", "")
+                _class = get_class(csv_path)  # get_class fonksiyonunun nasıl çalıştığını doğrulamalısınız
+                if _class not in classes:
+                    classes[_class] = []
+                classes[_class].append(name)
+
+        # JSON dosyasını oluştur ve dictionary'i yaz
+        with open(json_path, 'w') as json_file:
+            json.dump(classes, json_file, indent=4)
+        
+        print(f"{json_path} başarıyla oluşturuldu.")
+
+    except json.JSONDecodeError:
+        print(f"{json_path} hatalı bir JSON formatına sahip, dosya okunamadı.")
+        return
+
+    # 'classes_to_exclude' parametresine göre sınıfları dışarıda bırak
+    for class_to_exclude in classes_to_exclude:
+        if class_to_exclude in classes:
+            del classes[class_to_exclude]
+
+    # Sadece dahil edilen sınıfları ekle
+    classes_to_include = list(classes.keys())
+
+    data = {
+      'path': dataset_path,  # dataset root directory
+      'train': 'images/train',  # train images folder
+      'val': 'images/val',  # validation images folder
+      'test': 'images/test',  # test images folder
+
+      'nc': len(classes_to_include),
+      'names': classes_to_include
+    }
+
+    with open(os.path.join(dataset_path, 'data_excluded.yaml'), 'w') as f:
+        yaml.dump(data, f, sort_keys=False)
 
 def create_shuffle_dataset(dataset_path = os.getcwd(),train = 0.8,val=0.1,colab_mode = True): # /content for colab # the rest will be reserved for test set
     """
