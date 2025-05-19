@@ -92,13 +92,12 @@ def exclude_classes(classes_to_exclude: list, dataset_path=os.getcwd()):
     with open(os.path.join(dataset_path, 'data_excluded.yaml'), 'w') as f:
         yaml.dump(data, f, sort_keys=False)
 
-def create_shuffle_dataset(dataset_path = os.getcwd(), train = 0.8, val=0.1, colab_mode = True, download_dir="/content"): # /content for colab # the rest will be reserved for test set
+def create_shuffle_dataset(dataset_path = os.getcwd(), train = 0.8, val=0.1, colab_mode = True): # /content for colab # the rest will be reserved for test set
     """
     dataseti indirir, oluştruru istenen fomrata geitirir ve train, val, test setlerine ayırır.
     dataset_path: datasetin kaydedileceği dizin
     colab_mode: colabda çalışıyorsan True, bilgisayarında çalışıyorsan False yap, dataseti iki kere kopyalar, datasetin yedeği kalması için true da tutabilirsin
     """
-    os.environ['KAGGLEHUB_CACHE'] = download_dir
     path = kagglehub.dataset_download("a2015003713/militaryaircraftdetectiondataset")
     path = os.path.join(path,"dataset")
     #dataseti oluşturacağımız dizin
