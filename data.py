@@ -98,8 +98,8 @@ def create_shuffle_dataset(dataset_path = os.getcwd(), train = 0.8, val=0.1, col
     dataset_path: datasetin kaydedileceği dizin
     colab_mode: colabda çalışıyorsan True, bilgisayarında çalışıyorsan False yap, dataseti iki kere kopyalar, datasetin yedeği kalması için true da tutabilirsin
     """
-    print(os.getenv("KAGGLEHUB_CACHE", "EMPTY"))
-    path = kagglehub.dataset_download("a2015003713/militaryaircraftdetectiondataset", download_dir=download_dir)
+    os.environ['KAGGLEHUB_CACHE'] = download_dir
+    path = kagglehub.dataset_download("a2015003713/militaryaircraftdetectiondataset")
     path = os.path.join(path,"dataset")
     #dataseti oluşturacağımız dizin
     dataset_path = os.path.join(dataset_path ,'dataset')
